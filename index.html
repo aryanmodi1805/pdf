@@ -752,6 +752,153 @@
             margin-top: 16px
         }
 
+        /* ══ RESPONSIVENESS ══════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .wrap {
+                padding: 40px 24px;
+            }
+
+            .cover {
+                padding: 60px 40px 40px;
+                min-height: 400px;
+            }
+
+            .cover h1 {
+                font-size: 48px;
+            }
+
+            .role-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cover {
+                padding: 40px 24px 30px;
+                min-height: auto;
+            }
+
+            .cover h1 {
+                font-size: 38px;
+            }
+
+            .cover .subtext {
+                font-size: 15px;
+                margin-bottom: 30px;
+            }
+
+            .cover-orb1 {
+                width: 300px;
+                height: 300px;
+                top: -50px;
+                right: -50px;
+            }
+
+            .cover-orb2 {
+                width: 200px;
+                height: 200px;
+                bottom: -50px;
+                left: -50px;
+            }
+
+            .arch-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-tab h2 {
+                font-size: 22px;
+            }
+
+            .section-tab .tab-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .tbl {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .price-formula {
+                font-size: 16px;
+            }
+
+            .price-formula .t {
+                font-size: 20px;
+            }
+
+            .price-formula .op {
+                margin: 0 4px;
+            }
+
+            .price-box {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wrap {
+                padding: 20px 14px;
+            }
+
+            .cover h1 {
+                font-size: 32px;
+            }
+
+            .cover-meta {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .chk li {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .tl-item::before {
+                left: -20px;
+                width: 10px;
+                height: 10px;
+            }
+
+            .tl {
+                padding-left: 20px;
+            }
+
+            .tl::before {
+                left: 4px;
+            }
+
+            .price-formula {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .price-formula .op {
+                display: none;
+            }
+        }
+
         /* ══ PRINT ═══════════════════════════════════════════ */
         @media print {
             body {
@@ -2404,7 +2551,8 @@
                         <td><span class="tc-mod">MODIFIED</span></td>
                         <td><strong>Input Hardening:</strong> Added <code>min:1|max:100</code> config limits for cart
                             quantities. Added date traversal checks preventing historical checkouts via
-                            <code>after_or_equal:today</code>.</td>
+                            <code>after_or_equal:today</code>.
+                        </td>
                     </tr>
                     <tr>
                         <td class="tnum">VR02</td>
@@ -2413,7 +2561,8 @@
                         <td><span class="tc-mod">MODIFIED</span></td>
                         <td><strong>Banned Seller Prevention:</strong> The checkout API actively checks the
                             <code>seller-&gt;is_blocked</code> parameter, completely preventing clients from placing
-                            bookings with suspended merchants.</td>
+                            bookings with suspended merchants.
+                        </td>
                     </tr>
                     <tr>
                         <td class="tnum">VR03</td>
@@ -2423,7 +2572,8 @@
                         <td><strong>Single Capacity Checks:</strong> Identifies if a <code>Single</code> capacity
                             service (like private consults) has any intersecting <code>Confirmed</code> or
                             <code>Paid</code> orders within the requested timeframe. Strictly rejects overlapping
-                            purchases to prevent double-booking.</td>
+                            purchases to prevent double-booking.
+                        </td>
                     </tr>
                     <tr>
                         <td class="tnum">VR04</td>
@@ -2433,7 +2583,8 @@
                         <td><strong>Quantity Capacity Checks:</strong> Iterates day-by-day across the requested calendar
                             range. Mathematically aggregates the total tickets booked across all intersecting
                             <code>Confirmed / Paid</code> orders for each day. Halts the checkout if
-                            <code>booked_tickets + requested_tickets &gt; template_max_limit</code>.</td>
+                            <code>booked_tickets + requested_tickets &gt; template_max_limit</code>.
+                        </td>
                     </tr>
                 </tbody>
             </table>
