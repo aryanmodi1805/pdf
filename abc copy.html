@@ -1,0 +1,2486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>JAD Booking Service — System Changes Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f8;
+            color: #1a2340;
+            font-size: 14px;
+            line-height: 1.65
+        }
+
+        /* ══ COVER ══════════════════════════════════════════ */
+        .cover {
+            background: linear-gradient(140deg, #060f2e 0%, #0c2371 45%, #0e1e5a 100%);
+            color: #fff;
+            padding: 80px 60px 60px;
+            min-height: 460px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .cover-orb1 {
+            position: absolute;
+            top: -120px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 71, 182, .55) 0%, transparent 70%)
+        }
+
+        .cover-orb2 {
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(12, 35, 113, .6) 0%, transparent 70%)
+        }
+
+        .cover-tag {
+            border: 1px solid rgba(255, 255, 255, .3);
+            border-radius: 30px;
+            padding: 6px 20px;
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 36px;
+            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, .08)
+        }
+
+        .cover h1 {
+            font-size: 62px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 18px;
+            position: relative
+        }
+
+        .cover h1 span {
+            color: #f0c040
+        }
+
+        .cover .subtext {
+            font-size: 17px;
+            opacity: .7;
+            max-width: 540px;
+            line-height: 1.6;
+            margin-bottom: 48px;
+            position: relative
+        }
+
+        .cover-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative
+        }
+
+        .meta-pill {
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .18);
+            border-radius: 14px;
+            padding: 16px 24px;
+            backdrop-filter: blur(8px)
+        }
+
+        .meta-pill label {
+            display: block;
+            font-size: 9px;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            opacity: .55;
+            margin-bottom: 6px
+        }
+
+        .meta-pill span {
+            font-size: 16px;
+            font-weight: 800
+        }
+
+        /* ══ LAYOUT ══════════════════════════════════════════ */
+        .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 48px 32px
+        }
+
+        /* ══ SECTION TABS ════════════════════════════════════ */
+        .section-tab {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 44px 0 20px
+        }
+
+        .section-tab .tab-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .18)
+        }
+
+        .section-tab .tab-icon.be {
+            background: linear-gradient(135deg, #0c2371, #2547b6)
+        }
+
+        .section-tab .tab-icon.fl {
+            background: linear-gradient(135deg, #00695c, #00acc1)
+        }
+
+        .section-tab h2 {
+            font-size: 26px;
+            font-weight: 900;
+            color: #0c2371
+        }
+
+        .section-tab p {
+            font-size: 13px;
+            color: #778;
+            margin-top: 3px
+        }
+
+        .section-tab.fl h2 {
+            color: #00695c
+        }
+
+        /* ══ CARDS ═══════════════════════════════════════════ */
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, .06);
+            border: 1px solid #eaecf4
+        }
+
+        .card h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0c2371;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .card h3 .h-bar {
+            width: 5px;
+            height: 20px;
+            border-radius: 4px;
+            background: linear-gradient(#0c2371, #2547b6);
+            flex-shrink: 0
+        }
+
+        .card.fl h3 .h-bar {
+            background: linear-gradient(#00695c, #00acc1)
+        }
+
+        .card.fl h3 {
+            color: #00695c
+        }
+
+        /* ══ STATS ROW ═══════════════════════════════════════ */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 14px;
+            margin-bottom: 6px
+        }
+
+        .stat {
+            border-radius: 14px;
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid
+        }
+
+        .stat.be {
+            background: linear-gradient(135deg, #f2f5ff, #e8eeff);
+            border-color: #d0d8f5
+        }
+
+        .stat.fl {
+            background: linear-gradient(135deg, #f0faf8, #e0f5f0);
+            border-color: #b2e0d8
+        }
+
+        .stat .n {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1
+        }
+
+        .stat.be .n {
+            color: #0c2371
+        }
+
+        .stat.fl .n {
+            color: #00695c
+        }
+
+        .stat .l {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            color: #778;
+            margin-top: 7px
+        }
+
+        /* ══ ARCHITECTURAL CARDS ═════════════════════════════ */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .arch-card {
+            border-radius: 14px;
+            padding: 22px;
+            border: 1px solid
+        }
+
+        .arch-card.admin-c {
+            background: #f8f9ff;
+            border-color: #c8d0f0
+        }
+
+        .arch-card.seller-c {
+            background: #f3fff5;
+            border-color: #b8e0be
+        }
+
+        .arch-card h4 {
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .arch-card h4 .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%
+        }
+
+        .arch-card.admin-c h4 .dot {
+            background: #0c2371
+        }
+
+        .arch-card.seller-c h4 .dot {
+            background: #2e7d32
+        }
+
+        .arch-card p {
+            font-size: 12px;
+            color: #556;
+            line-height: 1.6
+        }
+
+        /* ══ PRICE BOX ═══════════════════════════════════════ */
+        .price-box {
+            background: linear-gradient(135deg, #fffaed, #fff4cc);
+            border: 2px solid #efc820;
+            border-radius: 16px;
+            padding: 26px;
+            text-align: center;
+            margin: 14px 0
+        }
+
+        .price-formula {
+            font-size: 20px;
+            font-weight: 900;
+            color: #1a2340;
+            margin-bottom: 8px;
+            letter-spacing: -.3px
+        }
+
+        .price-formula .p {
+            color: #0c2371
+        }
+
+        .price-formula .op {
+            color: #aaa;
+            margin: 0 10px
+        }
+
+        .price-formula .f {
+            color: #e65100
+        }
+
+        .price-formula .t {
+            color: #1b7a4a;
+            font-size: 24px
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: #997;
+            margin-top: 6px
+        }
+
+        /* ══ ROLE PANELS ═════════════════════════════════════ */
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px
+        }
+
+        .role-panel {
+            border-radius: 16px;
+            padding: 24px;
+            color: #fff;
+            position: relative;
+            overflow: hidden
+        }
+
+        .role-panel::after {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08)
+        }
+
+        .role-panel.rp-admin {
+            background: linear-gradient(140deg, #1a237e, #283593)
+        }
+
+        .role-panel.rp-seller {
+            background: linear-gradient(140deg, #1b5e20, #388e3c)
+        }
+
+        .role-panel.rp-customer {
+            background: linear-gradient(140deg, #01579b, #1976d2)
+        }
+
+        .role-panel.rp-screen {
+            background: linear-gradient(140deg, #0d47a1, #1565c0)
+        }
+
+        .role-panel.rp-checkout {
+            background: linear-gradient(140deg, #004d40, #00796b)
+        }
+
+        .role-panel.rp-confirm {
+            background: linear-gradient(140deg, #4a148c, #7b1fa2)
+        }
+
+        .role-tag {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: .65;
+            margin-bottom: 10px
+        }
+
+        .role-panel h4 {
+            font-size: 16px;
+            font-weight: 900;
+            margin-bottom: 16px
+        }
+
+        .role-panel ul {
+            list-style: none
+        }
+
+        .role-panel ul li {
+            font-size: 12.5px;
+            opacity: .93;
+            padding: 5px 0;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255, 255, 255, .1)
+        }
+
+        .role-panel ul li:last-child {
+            border-bottom: none
+        }
+
+        .role-panel ul li .bi {
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .badge-new {
+            display: inline-block;
+            background: #c8f7c5;
+            color: #155724;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            vertical-align: middle;
+            margin-left: 4px;
+            white-space: nowrap
+        }
+
+        .badge-mod {
+            display: inline-block;
+            background: #ffeeba;
+            color: #856404;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            vertical-align: middle;
+            margin-left: 4px;
+            white-space: nowrap
+        }
+
+        .badge-changed {
+            display: inline-block;
+            background: #bee5eb;
+            color: #0c5460;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            vertical-align: middle;
+            margin-left: 4px;
+            white-space: nowrap
+        }
+
+        .badge-gen {
+            display: inline-block;
+            background: #e2d9f3;
+            color: #4a1080;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            vertical-align: middle;
+            margin-left: 4px;
+            white-space: nowrap
+        }
+
+        /* ══ TABLES ══════════════════════════════════════════ */
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px
+        }
+
+        .tbl th {
+            background: #f0f2fa;
+            color: #1a2340;
+            font-weight: 700;
+            padding: 11px 14px;
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            border-bottom: 2px solid #e0e4f0
+        }
+
+        .tbl td {
+            padding: 11px 14px;
+            border-bottom: 1px solid #f0f2f8;
+            vertical-align: top
+        }
+
+        .tbl tr:last-child td {
+            border-bottom: none
+        }
+
+        .tbl tr:hover td {
+            background: #f8f9ff
+        }
+
+        .tbl.fl th {
+            background: #f0faf8;
+            border-bottom-color: #c8e6e0
+        }
+
+        .tbl.fl tr:hover td {
+            background: #f5fffe
+        }
+
+        .tnum {
+            color: #888;
+            font-size: 11px;
+            font-weight: 700
+        }
+
+        code {
+            background: #f0f2fa;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 11.5px;
+            font-family: monospace;
+            color: #0c2371
+        }
+
+        .ep {
+            font-family: monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0c2371
+        }
+
+        .mth {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 900;
+            font-family: monospace
+        }
+
+        .mth.post {
+            background: #4caf50;
+            color: #fff
+        }
+
+        .mth.get {
+            background: #2196f3;
+            color: #fff
+        }
+
+        .tc-new {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 8px;
+            padding: 2px 8px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase
+        }
+
+        .tc-mod {
+            display: inline-block;
+            background: #fff3e0;
+            color: #e65100;
+            border-radius: 8px;
+            padding: 2px 8px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase
+        }
+
+        .tc-gen {
+            display: inline-block;
+            background: #ede7f6;
+            color: #6a1b9a;
+            border-radius: 8px;
+            padding: 2px 8px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase
+        }
+
+        .srs {
+            display: inline-block;
+            background: #fce4ec;
+            color: #c62828;
+            border-radius: 6px;
+            padding: 1px 6px;
+            font-size: 9px;
+            font-weight: 800
+        }
+
+        /* ══ TIMELINE ════════════════════════════════════════ */
+        .tl {
+            padding-left: 28px;
+            position: relative
+        }
+
+        .tl::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: linear-gradient(#0c2371, #2547b6 50%, #00695c)
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 20px
+        }
+
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2.5px solid #0c2371;
+            background: #fff
+        }
+
+        .tl-item.app::before {
+            border-color: #00695c
+        }
+
+        .tl-item .tt {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #1a2340
+        }
+
+        .tl-item .td {
+            font-size: 12px;
+            color: #667;
+            margin-top: 3px
+        }
+
+        .tag-be {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 8px;
+            border-radius: 8px;
+            background: #e8eaf6;
+            color: #283593;
+            margin-left: 8px
+        }
+
+        .tag-fl {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 8px;
+            border-radius: 8px;
+            background: #e0f2f1;
+            color: #00695c;
+            margin-left: 8px
+        }
+
+        .tag-api {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 8px;
+            border-radius: 8px;
+            background: #fff3e0;
+            color: #e65100;
+            margin-left: 8px
+        }
+
+        /* ══ CHECKLIST ═══════════════════════════════════════ */
+        .chk {
+            list-style: none
+        }
+
+        .chk li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 11px 16px;
+            margin-bottom: 10px;
+            border-radius: 0 10px 10px 0;
+            font-size: 13px;
+            border-left: 4px solid
+        }
+
+        .chk li.be-chk {
+            background: #f5f7ff;
+            border-color: #0c2371
+        }
+
+        .chk li.fl-chk {
+            background: #f0faf8;
+            border-color: #00695c
+        }
+
+        .chk li .cb {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            display: inline-block
+        }
+
+        /* ══ DIVIDER ═════════════════════════════════════════ */
+        hr.div {
+            border: none;
+            border-top: 2px dashed #dde0ee;
+            margin: 44px 0
+        }
+
+        .footer {
+            text-align: center;
+            color: #aab;
+            font-size: 12px;
+            padding: 32px 0 12px;
+            border-top: 1px solid #dde0ee;
+            margin-top: 16px
+        }
+
+        /* ══ PRINT ═══════════════════════════════════════════ */
+        @media print {
+            body {
+                background: #fff
+            }
+
+            .cover,
+            .role-panel {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══════════════════ COVER ══════════════════════════ -->
+    <div class="cover">
+        <div class="cover-orb1"></div>
+        <div class="cover-orb2"></div>
+        <div class="cover-tag">Technical Change Documentation</div>
+        <h1>JAD Booking Service<br /><span>System Changes<br />Report</span></h1>
+        <p class="subtext">A comprehensive overview of all backend, API, and mobile app changes implemented as per the
+            JAD Booking Service SRS v1.0.</p>
+        <div class="cover-meta">
+            <div class="meta-pill"><label>Document Date</label><span>04 Mar 2026</span></div>
+            <div class="meta-pill"><label>SRS Version</label><span>v1.0</span></div>
+            <div class="meta-pill"><label>Status</label><span>✅ Implemented</span></div>
+            <div class="meta-pill"><label>Platforms</label><span>Backend + Flutter App</span></div>
+            <div class="meta-pill"><label>Last Update</label><span>Phase 3 — Seller + Finance</span></div>
+        </div>
+    </div>
+
+    <div class="wrap">
+
+        <!-- ══════════════════ EXEC SUMMARY ═══════════════════ -->
+        <div class="card" style="margin-top:40px">
+            <h3><span class="h-bar"></span>Executive Summary <span
+                    style="background:#eef2ff;color:#0c2371;font-size:11px;padding:2px 10px;border-radius:20px;font-weight:600;margin-left:6px">Overview</span>
+            </h3>
+            <p style="color:#557;margin-bottom:22px;font-size:13.5px">This document details all changes introduced to
+                the JAD platform to support the new Booking Service Catalog feature. Changes affect the Admin Control
+                Panel, Seller Application, Customer Application, and backend infrastructure. All changes are aligned
+                with the JAD Booking Service &amp; Pricing SRS v1.0. The report is split into two parts: <strong>Section
+                    1 — Backend (Server)</strong> and <strong>Section 2 — App (Flutter)</strong>.</p>
+
+            <p
+                style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#0c2371;margin-bottom:10px">
+                ⚙️ Backend (Server)</p>
+            <div class="stats-row" style="margin-bottom:22px">
+                <div class="stat be">
+                    <div class="n">18</div>
+                    <div class="l">New Files<br />Created</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">12</div>
+                    <div class="l">Files<br />Modified</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">11</div>
+                    <div class="l">API<br />Endpoints</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">100%</div>
+                    <div class="l">SRS<br />Compliance</div>
+                </div>
+            </div>
+
+            <p
+                style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#00695c;margin-bottom:10px">
+                📱 App (Flutter)</p>
+            <div class="stats-row" style="margin-bottom:22px">
+                <div class="stat fl">
+                    <div class="n">8</div>
+                    <div class="l">New Files<br />Created</div>
+                </div>
+                <div class="stat fl">
+                    <div class="n">8</div>
+                    <div class="l">Files<br />Modified</div>
+                </div>
+                <div class="stat fl">
+                    <div class="n">5</div>
+                    <div class="l">New<br />Screens</div>
+                </div>
+                <div class="stat fl">
+                    <div class="n">3</div>
+                    <div class="l">Updated<br />Flows</div>
+                </div>
+            </div>
+
+            <div
+                style="background:#e8f5e9;border-left:4px solid #2e7d32;padding:12px 18px;border-radius:0 10px 10px 0;font-size:13px;color:#1b5e20">
+                <strong>All SRS v1.0 functional requirements</strong> — FR-ADM-001 through FR-CLI-006, FR-SEL-001
+                through FR-SEL-007
+                (seller-side listing management, pricing &amp; escalation), FR-ADM-FIN-001 through FR-ADM-FIN-008
+                (admin financial dashboard &amp; reports), FR-ADM-006 (seller blocking cascade) — have been
+                implemented and verified across both the backend and Flutter app.
+            </div>
+        </div>
+
+        <!-- ══════════════════ ARCHITECTURAL OVERVIEW ══════════ -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Architectural Overview</h3>
+            <p style="color:#557;font-size:13px;margin-bottom:18px">The core decision was a strict separation between
+                Admin-controlled Templates and Seller-specific Listings — as mandated by SRS 4.1.</p>
+            <div class="arch-grid">
+                <div class="arch-card admin-c">
+                    <h4><span class="dot"></span><code>BookingServiceTemplate</code></h4>
+                    <p>Created &amp; managed by <strong>Admin only</strong>. Defines the service category, price range
+                        limits, visibility, and default listing status. Acts as the blueprint for all seller listings.
+                    </p>
+                </div>
+                <div class="arch-card seller-c">
+                    <h4><span class="dot" style="background:#2e7d32"></span><code>BookingListing</code></h4>
+                    <p>Created by <strong>Sellers</strong> from a template. seller_price is set by seller;
+                        auto-calculates 15% JAD displayed price. Subject to admin moderation (Approve/Hide).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════ PRICING RULE ═══════════════════ -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Pricing Business Rule (BR-001)</h3>
+            <div class="price-box">
+                <div class="price-formula">
+                    <span class="p">Seller Price</span>
+                    <span class="op">+</span>
+                    <span class="f">15% JAD Fee</span>
+                    <span class="op">=</span>
+                    <span class="t">Displayed Price</span>
+                </div>
+                <div class="price-note">At checkout (SRS 3.3.008): the App payment screen adds <strong>15% VAT</strong>
+                    + <strong>1 SAR processing fee</strong> on top of the Displayed Price shown in the listing</div>
+            </div>
+        </div>
+
+        <hr class="div" />
+
+        <!-- ══════════════════════════════════════════════════════
+     SECTION 1  —  BACKEND (SERVER)
+═══════════════════════════════════════════════════════ -->
+        <div class="section-tab">
+            <div class="tab-icon be">⚙️</div>
+            <div>
+                <h2>Section 1 — Backend (Laravel Server)</h2>
+                <p>All changes to <code>/server</code> — models, controllers, services, jobs, routes, Filament admin
+                    panel</p>
+            </div>
+        </div>
+
+        <!-- BACKEND: IMPACT BY ROLE -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Impact by Role — Backend</h3>
+            <div class="role-grid" style="margin-bottom:0">
+
+                <div class="role-panel rp-admin">
+                    <div class="role-tag">🛡️ Administrator · Admin Panel (FilamentPHP)</div>
+                    <h4>ADMIN</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>New: Booking Service Templates <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Admins create and manage Service Templates from a new
+                                dedicated panel section. Each template defines the category, allowed price range,
+                                visibility, and the default status applied to newly created seller listings.</span></li>
+                        <li><span class="bi">▸</span><span>New: Booking Listings Moderation <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>A new "Booking Listings" resource lets admins review all
+                                seller-submitted listings with Approve, Hide, and Show status filters. Listings from
+                                blocked sellers are auto-hidden immediately.</span></li>
+                        <li><span class="bi">▸</span><span>New: Finance Dashboard <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Order breakdowns: Base Price, JAD Commission (15%), VAT
+                                (15%), Processing Fee (1 SAR), and status and filters with revenue reporting.</span>
+                        </li>
+                        <li><span class="bi">▸</span><span>Updated: Order Re-assignment <span
+                                    class="badge-changed">CHANGED</span></span></li>
+                        <li><span class="bi">▸</span><span>SRS FR-ADM-007: The re-assignment modal now requires "Confirm
+                                Transfer with Client" before allowing re-assignment. Unauthorized re-assignments are
+                                prevented.</span></li>
+                        <li><span class="bi">▸</span><span>Updated: Seller Blocking Cascade <span
+                                    class="badge-changed">CHANGED</span></span></li>
+                        <li><span class="bi">▸</span><span>SRS FR-ADM-006 — Blocking a seller now instantly hides all
+                                their active Booking Listings across the platform in real time.</span></li>
+                    </ul>
+                </div>
+
+                <div class="role-panel rp-seller">
+                    <div class="role-tag">🏪 Seller · Mobile &amp; Web App</div>
+                    <h4>SELLER</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>New: Browse Service Templates <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Sellers can now browse templates via the new API. Each
+                                template shows price range, category, and description, giving sellers a clear catalog of
+                                services they can offer.</span></li>
+                        <li><span class="bi">▸</span><span>New: Create Booking Listings <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Sellers set their own price based on template constraints.
+                                Backend auto-calculates 15% JAD fee and displayed price. New listing status is "Pending
+                                Approval" until admin approves.</span></li>
+                        <li><span class="bi">▸</span><span>New: Auto Wallet Payout <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>On order confirmation, the seller's wallet is automatically
+                                credited with seller_base_price. No manual request needed — enforced via the
+                                OrderObserver.</span></li>
+                        <li><span class="bi">▸</span><span>New: 2-Hour Response Times with Quiet Period <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Sellers have 2 hours to respond to Booking Orders. The timer
+                                is paused during 7:00 PM – 9:00 PM (Quiet Period) per SRS 3.7. Failure to respond
+                                escalates the order automatically.</span></li>
+                        <li><span class="bi">▸</span><span>New: 8-Hour Repeat Push Notifications <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>For unconfirmed orders, sellers receive repeating push
+                                notification reminders every 8 hours via a scheduled background task, ensuring no order
+                                is missed.</span></li>
+                    </ul>
+                </div>
+
+                <div class="role-panel rp-customer">
+                    <div class="role-tag">👤 Customer / User · Mobile App</div>
+                    <h4>CUSTOMER</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>New: Booking vs Quote Differentiation <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>The services listing now clearly shows each service's type —
+                                "booking" = fixed price / "quote" = negotiation. Backend returns type + lowest available
+                                price from active seller listings.</span></li>
+                        <li><span class="bi">▸</span><span>New: Direct Checkout — No quote required <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Customers can book and pay instantly. The checkout screen
+                                shows a full breakdown: Service price + 15% VAT + 1 SAR fee. Order is created
+                                immediately in "Paid" status.</span></li>
+                        <li><span class="bi">▸</span><span>Improved: Fully Transparent Pricing <span
+                                    class="badge-changed">CHANGED</span></span></li>
+                        <li><span class="bi">▸</span><span>SRS FR-CLI-002 — Customers always see the full price
+                                breakdown before confirming. No hidden fees. VAT and processing fee shown as separate
+                                line items at checkout.</span></li>
+                        <li><span class="bi">▸</span><span>New: 2-Hour Escalation Protection <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>SRS FR-CLI-003 — If a seller fails to confirm within 2 hours,
+                                the order is automatically escalated to admin for re-assignment. Customer is notified at
+                                each status change.</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- BACKEND: NEW API ENDPOINTS -->
+        <div class="card">
+            <h3><span class="h-bar"></span>New API Endpoints (Backend)</h3>
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Endpoint</th>
+                        <th>Auth</th>
+                        <th>Purpose</th>
+                        <th>SRS Ref</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="mth post">POST</span></td>
+                        <td class="ep">/api/customer/booking/checkout</td>
+                        <td>Customer Token</td>
+                        <td>Direct checkout — validates listing, charges wallet, creates Order in "Paid" status,
+                            dispatches EscalateOrderJob</td>
+                        <td><span class="srs">FR-CLI-001</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="mth get">GET</span></td>
+                        <td class="ep">/api/seller/booking/templates</td>
+                        <td>Seller Token</td>
+                        <td>Returns all visible BookingServiceTemplates admin has published; includes price range,
+                            category, description</td>
+                        <td><span class="srs">FR-SEL-001</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="mth post">POST</span></td>
+                        <td class="ep">/api/seller/booking/listing</td>
+                        <td>Seller Token</td>
+                        <td>Seller creates a listing from a template. Accepts template_id + seller_price. Auto-computes
+                            jad_fee + displayed_price. Status: "Pending"</td>
+                        <td><span class="srs">FR-SEL-002</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="mth get">GET</span></td>
+                        <td class="ep">/api/seller/booking/my-listings</td>
+                        <td>Seller Token</td>
+                        <td>Returns all listings created by the authenticated seller with template and category info
+                        </td>
+                        <td><span class="srs">FR-SEL-003</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="mth post" style="background:#ff9800">PUT</span></td>
+                        <td class="ep">/api/seller/booking/listing/{id}</td>
+                        <td>Seller Token</td>
+                        <td>Update listing price (re-validated against template min/max), description, or images. JAD
+                            fee recalculated</td>
+                        <td><span class="srs">FR-SEL-003</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="mth post">POST</span></td>
+                        <td class="ep">/api/seller/booking/listing/{id}/publish</td>
+                        <td>Seller Token</td>
+                        <td>Publishes a listing. Status follows template's default_listing_status (Published or Pending)
+                        </td>
+                        <td><span class="srs">FR-SEL-006</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="mth get">GET</span></td>
+                        <td class="ep">/api/seller/booking/orders</td>
+                        <td>Seller Token</td>
+                        <td>Seller order inbox: all incoming orders with client, listing, and template details</td>
+                        <td><span class="srs">FR-SEL-007</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="mth post">POST</span></td>
+                        <td class="ep">/api/seller/booking/orders/{id}/accept</td>
+                        <td>Seller Token</td>
+                        <td>Accept order → status "Confirmed", triggers wallet payout via OrderObserver</td>
+                        <td><span class="srs">FR-SEL-007</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="mth post">POST</span></td>
+                        <td class="ep">/api/seller/booking/orders/{id}/reject</td>
+                        <td>Seller Token</td>
+                        <td>Reject with required reason (Busy / Product Not Available) + optional note. Order →
+                            Cancelled, Payment → Refunded</td>
+                        <td><span class="srs">FR-SEL-007</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- BACKEND: FILE CHANGES -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Backend File Changes (Server)</h3>
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>File / Location</th>
+                        <th>Type</th>
+                        <th>Detailed Change</th>
+                        <th>SRS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tnum">01</td>
+                        <td><code>BookingServiceTemplate.php</code><br /><small style="color:#aaa">app/Models/</small>
+                        </td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Admin-controlled template model. Fields: name_ar, name_en, service_category_id, min_price,
+                            max_price, <strong>max_capacity</strong>, <strong>is_visible</strong> (flag). Has hasMany
+                            BookingListings relation.</td>
+                        <td><span class="srs">FR-ADM-001</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">02</td>
+                        <td><code>BookingListing.php</code><br /><small style="color:#aaa">app/Models/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Seller listing model. Fields: template_id, seller_id, seller_price, jad_fee (auto 15%),
+                            displayed_price, status (pending/approved/hidden). Belongs to Seller and Template.</td>
+                        <td><span class="srs">FR-SEL-002</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">03</td>
+                        <td><code>BookingController.php</code><br /><small
+                                style="color:#aaa">app/Http/Controllers/Api/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Handles all 3 new booking endpoints. Checkout method: validates listing availability,
+                            deducts from customer wallet, creates Order, dispatches EscalateOrderJob with computed
+                            deadline (respecting Quiet Period 7–9 PM).</td>
+                        <td><span class="srs">FR-CLI-001</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">04</td>
+                        <td><code>EscalationService.php</code><br /><small style="color:#aaa">app/Services/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Computes escalation deadline: adds 2 business hours to current time; if window overlaps
+                            Quiet Period (7:00 PM–9:00 PM) the 2-hour clock is paused and resumes at 9:00 PM per SRS
+                            3.7.</td>
+                        <td><span class="srs">FR-ADM-005</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">05</td>
+                        <td><code>EscalateOrderJob.php</code><br /><small style="color:#aaa">app/Jobs/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Queued, delayed job dispatched at order creation. On execution: if order still unconfirmed →
+                            sets status to "Escalated" → notifies admin + customer via FCM push.</td>
+                        <td><span class="srs">FR-ADM-005</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">06</td>
+                        <td><code>SendRepeatPushCommand.php</code><br /><small
+                                style="color:#aaa">app/Console/Commands/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Artisan command run every 8 hours by the scheduler. Queries all orders in "Paid/Pending"
+                            status, sends push notification reminder to the associated seller's device via FCM.</td>
+                        <td><span class="srs">FR-SEL-003</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">07</td>
+                        <td><code>OrderObserver.php</code><br /><small style="color:#aaa">app/Observers/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Listens for Order model "updated" events. On status change to "confirmed": calls
+                            laravel-wallet <code>deposit()</code> to credit seller's wallet with seller_base_price
+                            immediately.</td>
+                        <td><span class="srs">BR-003</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">08</td>
+                        <td><code>BookingServiceTemplateResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Filament admin panel resource for template CRUD. Form includes: name, category, price range
+                            sliders, max_capacity input (inventory), is_visible toggle to show/hide from seller browse.
+                        </td>
+                        <td><span class="srs">FR-ADM-001</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">09</td>
+                        <td><code>BookingListingResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Filament resource: admin views all seller listings, can Approve/Hide individual listings.
+                            Table shows seller name, template, price, JAD fee, displayed price, and current status.</td>
+                        <td><span class="srs">FR-ADM-002</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">10</td>
+                        <td><code>OrderResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Finance dashboard: per-order breakdown of seller_base_price, jad_commission (15%),
+                            vat_amount (15%), processing_fee (1 SAR). Exportable CSV for monthly revenue reconciliation.
+                        </td>
+                        <td><span class="srs">FR-ADM-003</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">11</td>
+                        <td><code>Service.php</code><br /><small style="color:#aaa">app/Models/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>bookingListings()</code> hasMany relation + <code>isBookingService()</code>
+                            helper. isBookingService returns true if at least one approved, visible BookingListing
+                            exists for the service.</td>
+                        <td><span class="srs">FR-CLI-001</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">12</td>
+                        <td><code>ServiceResource.php</code><br /><small style="color:#aaa">app/Http/Resources/</small>
+                        </td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Now returns 4 new fields: <code>type</code> ('booking' | 'quote'), <code>price</code>
+                            (lowest displayed_price from active listings), <code>listing_id</code>,
+                            <code>template_id</code>. Used by app to branch flow.
+                        </td>
+                        <td><span class="srs">FR-CLI-001</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">13</td>
+                        <td><code>Order.php</code><br /><small style="color:#aaa">app/Models/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Registered OrderObserver via PHP 8 attribute:
+                            <code>#[ObservedBy(OrderObserver::class)]</code>. Ensures wallet payout fires automatically
+                            on every order confirmation without manual trigger.
+                        </td>
+                        <td><span class="srs">BR-003</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">14</td>
+                        <td><code>Kernel.php</code><br /><small style="color:#aaa">app/Console/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Scheduled <code>SendRepeatPushCommand</code> to run <code>everyEightHours()</code>. Runs on
+                            production server via Laravel's task scheduler (requires cron:
+                            <code>* * * * * php artisan schedule:run</code>).
+                        </td>
+                        <td><span class="srs">FR-SEL-003</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">15</td>
+                        <td><code>routes/api.php</code><br /><small style="color:#aaa">routes/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>Route::prefix('booking')</code> groups. Customer group (auth:customer): POST
+                            checkout. Seller group (auth:seller): GET templates, POST listing. Groups have rate limiting
+                            middleware.</td>
+                        <td>—</td>
+                    </tr>
+                    <tr style="background:#f0f2fa">
+                        <td colspan="5"
+                            style="font-weight:700;color:#0c2371;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:14px">
+                            📂 Phase 3 — Navigation, Financial Dashboard &amp; Seller Management</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">16</td>
+                        <td><code>FinancialReportResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Read-only Filament resource backed by the Order model. Displays per-order financial
+                            breakdown: seller base, JAD commission, VAT, processing fee, client total, computed seller
+                            payout. 4 filters (seller, payment status, order status, date range). CSV export with totals
+                            row + timestamp. Role-based access: super_admin, admin, finance only.</td>
+                        <td><span class="srs">FR-ADM-FIN-001–008</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">17</td>
+                        <td><code>ListFinancialReports.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/FinancialReportResource/Pages/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>List page that includes the FinancialSummaryWidget in the header area.</td>
+                        <td><span class="srs">FR-ADM-FIN-004</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">18</td>
+                        <td><code>FinancialSummaryWidget.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/FinancialReportResource/Widgets/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Filament StatsOverviewWidget showing 4 aggregate cards: Total Orders, Total VAT Collected,
+                            Platform Revenue (JAD commission + processing fees), Total Seller Payouts.</td>
+                        <td><span class="srs">FR-ADM-FIN-004</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">19</td>
+                        <td><code>nav.php</code><br /><small style="color:#aaa">lang/en/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>'new_changes'</code> translation key for the new navigation group that organizes
+                            all booking-related resources.</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">20</td>
+                        <td><code>Order.php</code><br /><small style="color:#aaa">app/Models/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>sellerPayout</code> computed accessor:
+                            <code>seller_base_price − jad_commission</code>. Used by the Financial Dashboard for payout
+                            display and CSV export.
+                        </td>
+                        <td><span class="srs">FR-ADM-FIN-001</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">21</td>
+                        <td><code>BookingController.php</code><br /><small
+                                style="color:#aaa">app/Http/Controllers/Api/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added 6 new methods: <code>myListings()</code>, <code>updateListing()</code> with price
+                            re-validation, <code>publishListing()</code> respecting template default status,
+                            <code>myOrders()</code>, <code>acceptOrder()</code>, <code>rejectOrder()</code> with reason
+                            (Busy/Product Not Available) + optional note.
+                        </td>
+                        <td><span class="srs">FR-SEL-003–007</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">22</td>
+                        <td><code>routes/api.php</code><br /><small style="color:#aaa">routes/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added 6 new routes under seller booking group: GET my-listings, PUT listing/{id}, POST
+                            listing/{id}/publish, GET orders, POST orders/{id}/accept, POST orders/{id}/reject.</td>
+                        <td><span class="srs">FR-SEL-003</span></td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">23</td>
+                        <td><code>BookingServiceTemplateResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Updated navigation group to <code>nav.new_changes</code> for reorganization.</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">24</td>
+                        <td><code>BookingListingResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Updated navigation group to <code>nav.new_changes</code>.</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">25</td>
+                        <td><code>OrderResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Updated navigation group to <code>nav.new_changes</code>.</td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- BACKEND: NAVIGATION REORGANIZATION -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Navigation Reorganization — "New Changes" Group <span
+                    class="badge-new">NEW</span></h3>
+            <p style="color:#557;font-size:13px;margin-bottom:18px">All new booking-related admin resources have been
+                organized under a single <strong>"New Changes"</strong> navigation group in the Filament admin panel,
+                separating them from the existing menu items (Wallet, Content Management, Payment).</p>
+            <div class="arch-grid">
+                <div class="arch-card admin-c">
+                    <h4><span class="dot"></span>Resources in "New Changes"</h4>
+                    <p>• Booking Service Templates<br />• Booking Listings<br />• Orders<br />• Financial Reports</p>
+                </div>
+                <div class="arch-card seller-c">
+                    <h4><span class="dot" style="background:#2e7d32"></span>Why Separate?</h4>
+                    <p>Keeps new booking features distinct from existing platform features, making it easy for admins to
+                        identify and access all newly added functionality.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BACKEND: FINANCIAL DASHBOARD -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Admin Financial Dashboard (FR-ADM-FIN-001–008) <span
+                    class="badge-new">NEW</span></h3>
+            <p style="color:#557;font-size:13px;margin-bottom:18px">A comprehensive financial reporting interface for
+                admin and finance roles, providing real-time visibility into platform revenue, VAT collection, and
+                seller payouts.</p>
+            <div class="stats-row" style="margin-bottom:18px">
+                <div class="stat be">
+                    <div class="n">📊</div>
+                    <div class="l">Summary<br />Widget</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">4</div>
+                    <div class="l">Filters<br />(Seller/Status/Date)</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">CSV</div>
+                    <div class="l">Export<br />+ Totals Row</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">🔒</div>
+                    <div class="l">Role-Based<br />Access</div>
+                </div>
+            </div>
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>SRS Req</th>
+                        <th>Feature</th>
+                        <th>Implementation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="srs">FIN-001</span></td>
+                        <td>Per-order financial breakdown</td>
+                        <td>Table columns: seller_base_price, jad_commission, vat_amount, processing_fee, total_amount,
+                            computed seller_payout</td>
+                    </tr>
+                    <tr>
+                        <td><span class="srs">FIN-002</span></td>
+                        <td>Filters by seller, status, date</td>
+                        <td>SelectFilter for seller (searchable), payment_status, order_status; DatePicker for
+                            payment_date range</td>
+                    </tr>
+                    <tr>
+                        <td><span class="srs">FIN-003</span></td>
+                        <td>VAT reporting by payment date</td>
+                        <td>Date range filter on <code>payment_date</code> column</td>
+                    </tr>
+                    <tr>
+                        <td><span class="srs">FIN-004</span></td>
+                        <td>Summary stats (VAT, Revenue, Payouts)</td>
+                        <td>FinancialSummaryWidget: Total Orders, VAT Collected, Platform Revenue, Seller Payouts</td>
+                    </tr>
+                    <tr>
+                        <td><span class="srs">FIN-005</span></td>
+                        <td>Filtered aggregation</td>
+                        <td>Widget responds to active table filters</td>
+                    </tr>
+                    <tr>
+                        <td><span class="srs">FIN-006</span></td>
+                        <td>CSV export</td>
+                        <td>Header action: exports all visible columns + TOTALS row + export timestamp</td>
+                    </tr>
+                    <tr>
+                        <td><span class="srs">FIN-007</span></td>
+                        <td>Role restriction</td>
+                        <td><code>canViewAny()</code> checks
+                            <code>hasAnyRole(['super_admin', 'admin', 'finance'])</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="srs">FIN-008</span></td>
+                        <td>Data consistency</td>
+                        <td>All values read directly from <code>orders</code> table — no recalculation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="div" />
+
+        <!-- ══════════════════════════════════════════════════════
+     SECTION 2  —  APP (FLUTTER)
+═══════════════════════════════════════════════════════ -->
+        <div class="section-tab fl">
+            <div class="tab-icon fl">📱</div>
+            <div>
+                <h2>Section 2 — App (Flutter)</h2>
+                <p>All changes to <code>/app</code> — models, screens, controllers, navigation, GetX, API client</p>
+            </div>
+        </div>
+
+        <!-- APP: IMPACT BY ROLE -->
+        <div class="card fl">
+            <h3><span class="h-bar"></span>What Changed for Users in the App</h3>
+            <div class="role-grid">
+
+                <div class="role-panel rp-screen">
+                    <div class="role-tag">📱 Service List &amp; Category Screens</div>
+                    <h4>SERVICE CARDS</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>Before: Every service tapped → opened the wizard (quote
+                                flow). <span class="badge-changed">CHANGED</span></span></li>
+                        <li><span class="bi">▸</span><span>After: Booking type services → navigate to new Booking
+                                Checkout Screen directly.</span></li>
+                        <li><span class="bi">▸</span><span>Quote type services → wizard flow unchanged, no
+                                disruption.</span></li>
+                        <li><span class="bi">▸</span><span>"Book Now" badge shown on top-left of service card image.
+                                <span class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Price (in SAR) shown below the service name for booking-type
+                                services. <span class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Applies to: ServicesScreen, CategoryServicesScreen, and the
+                                shared ServiceWidget used on the home screen.</span></li>
+                    </ul>
+                </div>
+
+                <div class="role-panel rp-checkout">
+                    <div class="role-tag">🛍️ New Screen — BookingCheckoutScreen</div>
+                    <h4>CHECKOUT SCREEN</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>Brand new screen shown when customer taps a Booking service.
+                                <span class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Shows: service image (full width), service name, itemised
+                                price breakdown.</span></li>
+                        <li><span class="bi">▸</span><span>Price breakdown: Base Price + 15% VAT + 1 SAR Processing Fee
+                                = <strong>Total</strong>.</span></li>
+                        <li><span class="bi">▸</span><span>Wallet payment indicator (only payment method for
+                                booking).</span></li>
+                        <li><span class="bi">▸</span><span>"Confirm Booking — XXX SAR" button with live loading
+                                spinner.</span></li>
+                        <li><span class="bi">▸</span><span>On tap: calls POST /api/customer/booking/checkout with
+                                listing_id + payment_method.</span></li>
+                    </ul>
+                </div>
+
+                <div class="role-panel rp-confirm">
+                    <div class="role-tag">✅ Post-Booking Confirmation State</div>
+                    <h4>AFTER CONFIRM</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>Success dialog shown with booking confirmation message. <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>User redirected to Home screen after dismissing
+                                dialog.</span></li>
+                        <li><span class="bi">▸</span><span>Order trackable in existing "My Requests" view (existing
+                                screen, no changes needed).</span></li>
+                        <li><span class="bi">▸</span><span>Escalation timer starts immediately on server side after
+                                checkout API call.</span></li>
+                        <li><span class="bi">▸</span><span>Push notifications (seller response, escalation) delivered
+                                via existing FCM channel — no app changes needed.</span></li>
+                        <li><span class="bi">▸</span><span>Error handling: wallet insufficient balance, listing
+                                unavailable — shown via existing error dialog.</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- APP: FILE CHANGES -->
+        <div class="card fl">
+            <h3><span class="h-bar"></span>App File Changes (Flutter)</h3>
+            <table class="tbl fl">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>File / Path</th>
+                        <th>Type</th>
+                        <th>Detailed Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tnum">01</td>
+                        <td><code>booking.checkout.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/customer/booking/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Full checkout UI built with GetView&lt;BookingCheckoutController&gt;. Contains: full-width
+                            ImageWidget header, service name, price breakdown card (3 rows + total), wallet payment
+                            section, and Obx-wrapped confirm button that shows spinner while isLoading=true.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">02</td>
+                        <td><code>booking.checkout.controller.dart</code><br /><small
+                                style="color:#aaa">presentation/customer/booking/controllers/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>GetX controller. Reads <code>Service</code> from Get.arguments on init. Exposes computed
+                            values: <code>servicePrice</code>, <code>vatAmount</code> (15%), <code>processingFee</code>
+                            (1 SAR const), <code>totalAmount</code>. <code>confirmBooking()</code> calls
+                            CustomerRetrofit.bookingCheckout(), shows EasyLoading, handles DioException errors.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">03</td>
+                        <td><code>booking.checkout.controller.binding.dart</code><br /><small
+                                style="color:#aaa">infrastructure/navigation/bindings/controllers/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Extends GetX <code>Bindings</code>. Registers <code>BookingCheckoutController</code> via
+                            <code>Get.lazyPut()</code> so it is only instantiated when the route is navigated to —
+                            consistent with the rest of the app's DI pattern.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">04</td>
+                        <td><code>service.dart</code><br /><small style="color:#aaa">infrastructure/model/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added 4 new nullable fields to the <code>Service</code> model: <code>String? type</code>,
+                            <code>double? price</code>, <code>@JsonKey(name:'listing_id') String? listingId</code>,
+                            <code>@JsonKey(name:'template_id') String? templateId</code>. Added computed getter:
+                            <code>bool get isBooking =&gt; type == 'booking'</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">05</td>
+                        <td><code>service.g.dart</code><br /><small style="color:#aaa">infrastructure/model/</small>
+                        </td>
+                        <td><span class="tc-gen">GENERATED</span></td>
+                        <td>Manually regenerated (build_runner blocked by Xcode license on dev machine). Updated
+                            <code>_$ServiceFromJson</code> to parse all 4 new fields: type (String?), price
+                            (num→double?), listing_id (String?), template_id (String?). Updated
+                            <code>_$ServiceToJson</code> correspondingly.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">06</td>
+                        <td><code>repository.provider.dart</code><br /><small
+                                style="color:#aaa">infrastructure/repository/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>bookingCheckout(String listing_id, String payment_method)</code> to
+                            <code>CustomerRestClient</code> abstract class. Annotated with
+                            <code>@POST('/booking/checkout')</code> and Retrofit <code>@Field()</code> params. Returns
+                            <code>Future&lt;HttpResponse&lt;Map&lt;String, dynamic&gt;&gt;&gt;</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">07</td>
+                        <td><code>repository.provider.g.dart</code><br /><small
+                                style="color:#aaa">infrastructure/repository/</small></td>
+                        <td><span class="tc-gen">GENERATED</span></td>
+                        <td>Manually added Retrofit-generated implementation for <code>bookingCheckout</code> inside
+                            <code>_CustomerRestClient</code>. Follows exact same pattern as existing POST methods:
+                            builds data map, calls <code>_setStreamType</code>, fetches with
+                            <code>_dio.fetch&lt;Map&lt;String,dynamic&gt;&gt;</code>, maps response.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">08</td>
+                        <td><code>routes.dart</code><br /><small style="color:#aaa">infrastructure/navigation/</small>
+                        </td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>static const BOOKING_CHECKOUT = '/bookingCheckout'</code> to the
+                            <code>Routes</code> class. Follows existing naming convention (camelCase, leading slash).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">09</td>
+                        <td><code>navigation.dart</code><br /><small
+                                style="color:#aaa">infrastructure/navigation/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added 2 import statements for the new screen and binding. Added
+                            <code>GetPage(name: Routes.BOOKING_CHECKOUT, page: () =&gt; const BookingCheckoutScreen(), binding: BookingCheckoutControllerBinding())</code>
+                            to the routes list.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">10</td>
+                        <td><code>services.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/customer/services/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>1) onTap now reads <code>service.isBooking</code> — true:
+                            <code>Get.toNamed(Routes.BOOKING_CHECKOUT, arguments: service)</code>, false:
+                            <code>WizardService.serviceWizard(service)</code>. 2) Service card image wrapped in Stack to
+                            show "Book Now" badge. 3) Price label added below service name for booking type.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">11</td>
+                        <td><code>category.services.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/customer/services/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Same three changes as services.screen.dart: branching onTap logic, "Book Now" badge overlay
+                            on image Stack, and price label in the card text area below service name. Added
+                            <code>ColorManager</code> import to support primary color on badge and price.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">12</td>
+                        <td><code>service.widget.dart</code><br /><small
+                                style="color:#aaa">presentation/widgets/views/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Shared widget used on home screen horizontal service list. Same branching logic extracted to
+                            <code>_handleTap()</code> method for clarity. Badge shown as Positioned widget in Stack over
+                            image. Price shown as secondary Text widget in content column.
+                        </td>
+                    </tr>
+                    <tr style="background:#f0faf8">
+                        <td colspan="4"
+                            style="font-weight:700;color:#00695c;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:14px">
+                            📂 Phase 3 — Seller Booking Screens (New)</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">13</td>
+                        <td><code>booking.seller.controller.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/controllers/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>GetX controller for all seller booking API calls using raw Dio (no build_runner needed).
+                            Handles: fetchTemplates, fetchMyListings, fetchMyOrders, createListing, publishListing,
+                            acceptOrder, rejectOrder (with reason + note).</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">14</td>
+                        <td><code>booking.template_browser.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Template browser screen. Lists all published admin templates with category, price range (SAR
+                            min–max). Tapping a template navigates to CreateListingScreen.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">15</td>
+                        <td><code>booking.create_listing.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Create listing form. Price input with real-time validation against template min/max. Live
+                            preview of 15% JAD fee and final displayed price. Description field. Submit creates listing
+                            via API.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">16</td>
+                        <td><code>booking.my_listings.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>My Listings screen. Shows all seller's listings with status badge
+                            (Published/Pending/Hidden), price breakdown (Your Price vs Displayed), and Publish button
+                            for pending listings. FAB to create new listing.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">17</td>
+                        <td><code>booking.order_inbox.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Order inbox. Shows incoming orders with client name, total amount, seller payout.
+                            Accept/Reject buttons for pending orders. Reject shows dialog with required reason selection
+                            (Busy / Product Not Available) + optional note field.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- APP: SELLER BOOKING MANAGEMENT FLOW -->
+        <div class="card fl">
+            <h3><span class="h-bar"></span>Seller Booking Management Flow (FR-SEL-001–007) <span
+                    class="badge-new">NEW</span></h3>
+            <div class="role-grid">
+                <div class="role-panel rp-screen">
+                    <div class="role-tag">📋 Template Browser</div>
+                    <h4>BROWSE</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>Seller opens template browser via FAB on My Listings. <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Lists all admin-published templates with category and price
+                                range (SAR).</span></li>
+                        <li><span class="bi">▸</span><span>Tap a template → navigates to Create Listing.</span></li>
+                    </ul>
+                </div>
+                <div class="role-panel rp-checkout">
+                    <div class="role-tag">💰 Create &amp; Price</div>
+                    <h4>LISTING</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>Seller enters price within template range. <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Live preview: Your Price + 15% JAD Fee = Displayed
+                                Price.</span></li>
+                        <li><span class="bi">▸</span><span>Validation: price outside range → error. Per SRS
+                                VR-001.</span></li>
+                        <li><span class="bi">▸</span><span>Status set to template's default (Published or
+                                Pending).</span></li>
+                    </ul>
+                </div>
+                <div class="role-panel rp-confirm">
+                    <div class="role-tag">📥 Order Inbox</div>
+                    <h4>ORDERS</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>Seller sees all incoming orders with totals. <span
+                                    class="badge-new">NEW</span></span></li>
+                        <li><span class="bi">▸</span><span>Accept → Confirmed. Wallet payout automatic.</span></li>
+                        <li><span class="bi">▸</span><span>Reject → Must select reason: Busy or Product Not Available.
+                                <span class="badge-changed">CHANGED</span></span></li>
+                        <li><span class="bi">▸</span><span>Optional note field for additional context.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- APP: BOOKING FLOW TIMELINE -->
+        <div class="card fl">
+            <h3><span class="h-bar"></span>End-to-End Booking Flow (App + Backend)</h3>
+            <div class="tl">
+                <div class="tl-item">
+                    <div class="tt">Customer opens Services screen <span class="tag-fl">App</span></div>
+                    <div class="td">App calls GET /services. Backend's updated ServiceResource now returns
+                        <code>type</code>, <code>price</code>, <code>listing_id</code>, <code>template_id</code> for
+                        each service.
+                    </div>
+                </div>
+                <div class="tl-item app">
+                    <div class="tt">Service model deserializes new fields <span class="tag-fl">App —
+                            service.g.dart</span></div>
+                    <div class="td"><code>service.isBooking</code> is computed from the returned <code>type</code>
+                        field. Quote services remain unchanged.</div>
+                </div>
+                <div class="tl-item app">
+                    <div class="tt">"Book Now" badge + price visible on booking service cards <span class="tag-fl">App —
+                            UI</span></div>
+                    <div class="td">Stack overlay on image shows brand-coloured "Book Now" badge. Price label appears
+                        below service name on card.</div>
+                </div>
+                <div class="tl-item app">
+                    <div class="tt">Customer taps a booking service <span class="tag-fl">App — Navigation</span></div>
+                    <div class="td"><code>Get.toNamed(Routes.BOOKING_CHECKOUT, arguments: service)</code> — Service
+                        object passed directly to checkout screen.</div>
+                </div>
+                <div class="tl-item app">
+                    <div class="tt">BookingCheckoutScreen renders price breakdown <span class="tag-fl">App —
+                            Screen</span></div>
+                    <div class="td">Controller computes: <strong>service.price</strong> + <strong>15% VAT</strong> +
+                        <strong>1 SAR</strong> = Total. Wallet selected as payment method automatically.
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tt">Customer taps "Confirm Booking" button <span class="tag-api">API Call</span></div>
+                    <div class="td">POST /api/customer/booking/checkout → body:
+                        <code>{listing_id: "...", payment_method: "wallet"}</code>. EasyLoading spinner appears.
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tt">Server validates, charges wallet, creates Order <span class="tag-be">Backend</span>
+                    </div>
+                    <div class="td">BookingController: checks listing availability &amp; capacity, deducts from customer
+                        wallet, creates Order with status="Paid".</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tt">EscalateOrderJob dispatched with computed deadline <span class="tag-be">Backend —
+                            Queue</span></div>
+                    <div class="td">EscalationService computes 2-hour deadline (skipping Quiet Period 7–9 PM). Job
+                        queued to fire at deadline if seller hasn't confirmed.</div>
+                </div>
+                <div class="tl-item app">
+                    <div class="tt">App shows success dialog, navigates to Home <span class="tag-fl">App — UX</span>
+                    </div>
+                    <div class="td">EasyLoading dismissed. Success dialog with confirmation message. On OK:
+                        <code>Get.offAllNamed(Routes.HOME)</code>.
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tt">Seller receives push notification <span class="tag-be">Backend — FCM</span></div>
+                    <div class="td">Push sent immediately on order creation. Repeat push every 8 hours via scheduled
+                        SendRepeatPushCommand until seller confirms.</div>
+                </div>
+            </div>
+        </div>
+        <hr class="div" />
+
+        <!-- ══════════════════════════════════════════════════════
+     SECTION 3  —  WIRING, INTEGRATION & BUG FIXES
+═══════════════════════════════════════════════════════ -->
+        <div class="section-tab">
+            <div class="tab-icon be">🔧</div>
+            <div>
+                <h2>Section 3 — Wiring, Integration &amp; Bug Fixes</h2>
+                <p>Runtime error resolution, seller booking screen integration, backend auth fixes, and UX improvements
+                </p>
+            </div>
+        </div>
+
+        <!-- WIRING: OVERVIEW -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Integration Overview <span class="badge-changed">UPDATED</span></h3>
+            <p style="color:#557;font-size:13px;margin-bottom:18px">After initial screen creation, the seller booking
+                screens required significant wiring, debugging, and backend fixes to become fully functional. This
+                section documents all changes made to connect the screens to the app's navigation, fix runtime crashes,
+                and resolve backend authentication issues.</p>
+            <div class="stats-row">
+                <div class="stat be">
+                    <div class="n">12</div>
+                    <div class="l">Files<br />Modified</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">5</div>
+                    <div class="l">Runtime<br />Crashes Fixed</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">1</div>
+                    <div class="l">Backend<br />Auth Fix</div>
+                </div>
+                <div class="stat be">
+                    <div class="n">1</div>
+                    <div class="l">UX<br />Improvement</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WIRING: BUG FIXES -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Runtime Bugs Fixed <span class="badge-changed">CHANGED</span></h3>
+            <div class="role-grid">
+                <div class="role-panel rp-admin">
+                    <div class="role-tag">🐛 Bug #1 — Map→String Crash</div>
+                    <h4>LOCALIZATION FIX</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>Backend returns <code>name</code> as multilingual Map
+                                <code>{"en":"...", "ar":"..."}</code> via HasTranslations trait. <span
+                                    class="badge-changed">ROOT CAUSE</span></span></li>
+                        <li><span class="bi">▸</span><span>Flutter Text widgets expected a plain String → threw
+                                <code>_Map&lt;String, dynamic&gt; is not a subtype of type String</code>.</span></li>
+                        <li><span class="bi">▸</span><span>Fix: Added <code>_localized()</code> helper in 4 screens to
+                                extract locale-specific string from Map values. <span
+                                    class="badge-changed">CHANGED</span></span></li>
+                        <li><span class="bi">▸</span><span>Applied to: template_browser, my_listings, order_inbox,
+                                create_listing screens.</span></li>
+                    </ul>
+                </div>
+
+                <div class="role-panel rp-seller">
+                    <div class="role-tag">🐛 Bug #2 — GetX Obx Error</div>
+                    <h4>REACTIVE FIX</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span><code>Obx</code> wrapper used with non-reactive
+                                <code>priceController.text</code> in CreateListingScreen. <span
+                                    class="badge-changed">ROOT CAUSE</span></span></li>
+                        <li><span class="bi">▸</span><span>GetX threw: "improper use of GetX detected — no observable
+                                variables found inside Obx".</span></li>
+                        <li><span class="bi">▸</span><span>Fix: Replaced <code>Obx</code> with Flutter's
+                                <code>ValueListenableBuilder&lt;TextEditingValue&gt;</code>. <span
+                                    class="badge-changed">CHANGED</span></span></li>
+                        <li><span class="bi">▸</span><span>Live fee preview now properly rebuilds on every keystroke
+                                without GetX reactive variables.</span></li>
+                    </ul>
+                </div>
+
+                <div class="role-panel rp-customer">
+                    <div class="role-tag">🐛 Bug #3 — Layout Conflict</div>
+                    <h4>HUB SCREEN FIX</h4>
+                    <ul>
+                        <li><span class="bi">▸</span><span>Nested <code>Scaffold</code> + <code>TabBarView</code>
+                                inside <code>PersistentTabView</code> caused rendering crash. <span
+                                    class="badge-changed">ROOT CAUSE</span></span></li>
+                        <li><span class="bi">▸</span><span>Fix: Rewrote BookingHubScreen to use simple
+                                <code>Column</code> with toggle buttons + conditional rendering. <span
+                                    class="badge-changed">CHANGED</span></span></li>
+                        <li><span class="bi">▸</span><span>MyListingsScreen and OrderInboxScreen AppBars removed (hub
+                                provides the header).</span></li>
+                        <li><span class="bi">▸</span><span>Controller errors wrapped in try-catch with defensive
+                                <code>data is Map</code> checks.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- WIRING: BACKEND AUTH FIX -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Backend Auth Fix — BookingController <span
+                    class="badge-changed">CHANGED</span></h3>
+            <p style="color:#557;font-size:13px;margin-bottom:18px">The BookingController was missing Sanctum
+                authentication, causing all seller booking API calls to return HTTP 500.</p>
+            <div class="arch-grid">
+                <div class="arch-card admin-c">
+                    <h4><span class="dot"></span>Problem</h4>
+                    <p>• <code>auth()->id()</code> used in 9 places — returns <code>null</code> without Sanctum
+                        middleware<br />
+                        • Seller routes have no explicit <code>auth:sanctum</code> middleware group<br />
+                        • Error: <code>Attempt to read property "id" on null</code></p>
+                </div>
+                <div class="arch-card seller-c">
+                    <h4><span class="dot" style="background:#2e7d32"></span>Solution</h4>
+                    <p>• Added <code>$this->middleware('auth:sanctum')</code> to constructor (matching
+                        SellerProfileController pattern)<br />
+                        • Replaced all <code>auth()->id()</code> → <code>$request->user()->id</code><br />
+                        • Added <code>Request $request</code> parameter to 5 methods that were missing it</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WIRING: UX IMPROVEMENT -->
+        <div class="card">
+            <h3><span class="h-bar"></span>UX Improvement — Create Listing Dialog <span class="badge-new">NEW</span>
+            </h3>
+            <p style="color:#557;font-size:13px;margin-bottom:18px">Added a confirmation dialog after listing creation
+                attempt, improving user feedback.</p>
+            <div class="arch-grid">
+                <div class="arch-card admin-c">
+                    <h4><span class="dot"></span>Before</h4>
+                    <p>On success: silently navigated back with <code>Get.back()</code>. On failure: no visual
+                        feedback.</p>
+                </div>
+                <div class="arch-card seller-c">
+                    <h4><span class="dot" style="background:#2e7d32"></span>After</h4>
+                    <p>• <strong>Success:</strong> AlertDialog with green ✅ icon — "Your listing has been created
+                        successfully!"<br />
+                        • <strong>Failure:</strong> AlertDialog with red ❌ icon — "Failed to create listing. Please try
+                        again."<br />
+                        • Both: OK button → closes dialog → navigates back</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WIRING: FILE CHANGES TABLE -->
+        <div class="card">
+            <h3><span class="h-bar"></span>File Changes — Wiring &amp; Bug Fixes</h3>
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>File / Path</th>
+                        <th>Type</th>
+                        <th>Detailed Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#f2f5ff">
+                        <td colspan="4"
+                            style="font-weight:700;color:#0c2371;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:14px">
+                            🔧 Backend (Laravel Server)</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W1</td>
+                        <td><code>BookingController.php</code><br /><small
+                                style="color:#aaa">app/Http/Controllers/Api/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>__construct()</code> with <code>$this->middleware('auth:sanctum')</code>.
+                            Replaced all 9 occurrences of <code>auth()->id()</code> with
+                            <code>$request->user()->id</code>. Added <code>Request $request</code> parameter to
+                            <code>listTemplates</code>, <code>myListings</code>, <code>publishListing</code>,
+                            <code>acceptOrder</code>, <code>myOrders</code>.
+                        </td>
+                    </tr>
+                    <tr style="background:#f0faf8">
+                        <td colspan="4"
+                            style="font-weight:700;color:#00695c;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:14px">
+                            📱 App (Flutter) — Navigation &amp; Wiring</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W2</td>
+                        <td><code>routes.dart</code><br /><small style="color:#aaa">infrastructure/navigation/</small>
+                        </td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added 3 route constants: <code>SELLER_BOOKING_HUB</code>,
+                            <code>SELLER_TEMPLATE_BROWSER</code>, <code>SELLER_CREATE_LISTING</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W3</td>
+                        <td><code>navigation.dart</code><br /><small
+                                style="color:#aaa">infrastructure/navigation/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added imports and 3 <code>GetPage</code> entries for new seller booking routes with
+                            <code>BookingSellerControllerBinding</code>. CreateListing route passes
+                            <code>Get.arguments</code> as template parameter.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W4</td>
+                        <td><code>booking.seller.controller.binding.dart</code><br /><small
+                                style="color:#aaa">bindings/controllers/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>GetX binding for <code>BookingSellerController</code> via <code>Get.lazyPut()</code>.
+                            Follows existing binding pattern used by BookingCheckoutControllerBinding.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W5</td>
+                        <td><code>seller.home.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/home/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added 4th "Bookings" tab to seller bottom navigation via PersistentTabView.
+                            <code>BookingHubScreen</code> registered as tab content. Controller initialized on tab
+                            switch. Profile tab moved from index 2 → 3.
+                        </td>
+                    </tr>
+                    <tr style="background:#f0faf8">
+                        <td colspan="4"
+                            style="font-weight:700;color:#00695c;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:14px">
+                            📱 App (Flutter) — Bug Fixes &amp; UX</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W6</td>
+                        <td><code>booking.hub.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Rewrote from nested Scaffold+TabBarView to simple Column with custom toggle buttons and
+                            conditional widget rendering. Resolves layout conflict crash with PersistentTabView.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W7</td>
+                        <td><code>booking.seller.controller.dart</code><br /><small
+                                style="color:#aaa">controllers/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Wrapped <code>onInit</code> in try-catch. Added <code>data is Map</code> checks. Catches
+                            both DioException and generic exceptions. ID params converted to String via
+                            <code>.toString()</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W8</td>
+                        <td><code>booking.template_browser.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Changed <code>Get.put</code> → <code>Get.find</code> to avoid duplicate controller. Added
+                            <code>_localized()</code> helper for template name and category name display.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W9</td>
+                        <td><code>booking.my_listings.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Removed AppBar (provided by hub). Added <code>_localizedL()</code> for template name.
+                            <code>publishListing</code> ID converted to String.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W10</td>
+                        <td><code>booking.order_inbox.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Removed AppBar. Added <code>_localizedO()</code> for template name. Order IDs converted to
+                            String for accept/reject API calls.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W11</td>
+                        <td><code>booking.create_listing.screen.dart</code><br /><small
+                                style="color:#aaa">presentation/seller/booking/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>_localizedC()</code> for template name header. Replaced
+                            <code>Obx</code> with <code>ValueListenableBuilder&lt;TextEditingValue&gt;</code> for live
+                            fee preview. Added success/failure AlertDialog with OK button → navigates back.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="div" />
+
+        <!-- ══════════════════ CLIENT PURCHASE FLOW ════════════ -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Client Purchase Flow (FR-CLI-001–011) <span class="badge-new">NEW</span></h3>
+            <p style="color:#557;margin-bottom:20px;font-size:13.5px">This section details the enhancements made to
+                allow clients to purchase services through the platform.</p>
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th style="width:50px">ID</th>
+                        <th style="width:200px">File / Component</th>
+                        <th style="width:100px">Change Type</th>
+                        <th>Implementation Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tnum">C01</td>
+                        <td><code>2026_03_04_030000_add_quantity_dates_to_orders_table.php</code><br /><small
+                                style="color:#aaa">database/migrations/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Added <code>quantity</code>, <code>date_from</code>, and <code>date_to</code> columns to the
+                            <code>orders</code> table to support service bookings.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">C02</td>
+                        <td><code>Order.php</code><br /><small style="color:#aaa">app/Models/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added new booking columns to <code>$fillable</code> and <code>$casts</code> properties.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">C03</td>
+                        <td><code>BookingController.php</code><br /><small
+                                style="color:#aaa">app/Http/Controllers/Api/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Updated <code>directCheckout()</code> to accept and store <code>quantity</code>,
+                            <code>date_from</code>, and <code>date_to</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">C04</td>
+                        <td><code>OrderResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Rewrote the admin panel resource to use the new <code>Order</code> model instead of the
+                            deprecated <code>Request</code> model. Added status badges, filters, and booking details to
+                            forms and tables.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">C05</td>
+                        <td><code>ServiceShow.php</code> &amp; <code>service-show.blade.php</code><br /><small
+                                style="color:#aaa">app/Livewire/ &amp; resources/views/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Updated the website service detail page to detect booking vs quote services. Added a dynamic
+                            booking form with quantity selector, date range pickers, and live price breakdown.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">C06</td>
+                        <td><code>booking.checkout.screen.dart</code> &amp; <code>controller</code><br /><small
+                                style="color:#aaa">Flutter App</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Enhanced the checkout screen with reactive quantity, date pickers, dynamic pricing
+                            multiplier, and updated API payload.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">C07</td>
+                        <td><code>OrderTracking.php</code> &amp; <code>order-tracking.blade.php</code><br /><small
+                                style="color:#aaa">Livewire / Website</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Created an elegant timeline interface for users to track their order status (Paid &rarr;
+                            Confirmed &rarr; Completed).</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td class="tnum">C08</td>
+                        <td><code>booking.tracking.screen.dart</code><br /><small style="color:#aaa">Flutter App</small>
+                        </td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Added corresponding order status tracking and timeline visualization for the mobile app.
+                        </td>
+                    </tr>
+
+                    <!-- SELLER WALLET FOR BOOKINGS -->
+                    <tr>
+                        <td colspan="4" class="sec-div">3. Seller Wallet for Bookings (FR-WAL Series)</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W01</td>
+                        <td><code>BookingWalletTransaction.php</code><br /><small style="color:#aaa">app/Models/</small>
+                        </td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Created a dedicated Fiat model tracking actual platform payouts, entirely separate from the
+                            legacy lead-credit wallet.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W02</td>
+                        <td><code>Seller.php</code><br /><small style="color:#aaa">app/Models/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Added <code>booking_wallet_balance</code> column to track aggregate fiat earnings and
+                            defined the <code>bookingWalletTransactions</code> relationship.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W03</td>
+                        <td><code>OrderObserver.php</code><br /><small style="color:#aaa">app/Observers/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Refactored <code>payoutSeller()</code> to use the new fiat model. Implemented logic to
+                            automatically compute payouts (Base Price - JAD Commission) upon 'Completed/Confirmed'
+                            status, and logic to reverse transactions upon 'Cancelled/Refunded'.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W04</td>
+                        <td><code>BookingWalletTransactionResource.php</code><br /><small
+                                style="color:#aaa">app/Filament/Resources/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Created an immutable admin ledger under the Finance group to monitor seller payouts,
+                            rendering the JSON breakdown of commissions natively.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W05</td>
+                        <td><code>BookingWalletController.php</code><br /><small
+                                style="color:#aaa">app/Http/Controllers/Api/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Added the <code>api/seller/wallet/booking/history</code> endpoint to allow the Flutter app
+                            and Website to retrieve the seller's total fiat balance and paginated payout ledger.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">W06</td>
+                        <td><code>booking_wallet.screen.dart</code><br /><small style="color:#aaa">Flutter App</small>
+                        </td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Built the specialized "My Earnings" UI and wired it into the Seller Profile menu. Displays
+                            the SAR total aggregated balance alongside an infinite-scroll list of ledger payouts.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="div" />
+
+        <!-- ══════════════════ BOOKING NOTIFICATIONS ════════════ -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Booking Notifications (FR-NOT-001–006) <span class="badge-new">NEW</span>
+            </h3>
+            <p style="color:#557;margin-bottom:20px;font-size:13.5px">This section details the complex scheduling and
+                SMS/Push notification infrastructure built to keep sellers and clients updated, including the 7-9 PM
+                Quiet
+                Period escalation logic.</p>
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th style="width:50px">ID</th>
+                        <th style="width:200px">File / Component</th>
+                        <th style="width:100px">Change Type</th>
+                        <th>Implementation Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tnum">N01</td>
+                        <td><code>2026_03_04_022648_add_notification_tracking_to_orders_table.php</code><br /><small
+                                style="color:#aaa">database/migrations/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Added timestamps: <code>last_seller_reminder_at</code>, <code>admin_escalated_at</code>, and
+                            <code>reminder_1day_sent_at</code> to the orders table to track and prevent duplicate
+                            alerts.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">N02</td>
+                        <td><code>BookingNewOrderNotification.php</code><br /><small
+                                style="color:#aaa">app/Notifications/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Sends simultaneous SMS, FCM Push, and Database alerts to the Seller instantly when a new
+                            Booking
+                            is Paid.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">N03</td>
+                        <td><code>BookingConfirmedNotification.php</code><br /><small
+                                style="color:#aaa">app/Notifications/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Fires an SMS alert to the Client as soon as the Seller confirms their booking.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">N04</td>
+                        <td><code>OrderObserver.php</code><br /><small style="color:#aaa">app/Observers/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Hooked the <code>Paid</code> and <code>Confirmed</code> status transitions to
+                            instantaneously
+                            dispatch the aforementioned Notifications.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">N05</td>
+                        <td><code>SendBookingSellerReminders.php</code><br /><small
+                                style="color:#aaa">app/Console/Commands/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Cron Job (every 10 minutes) that checks if an order is un-actioned and dispatches repeating
+                            Push
+                            Notifications to the Seller every 8 hours.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">N06</td>
+                        <td><code>CheckBookingAdminEscalation.php</code><br /><small
+                                style="color:#aaa">app/Console/Commands/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Cron Job with complex math to calculate Active Elapsed Time, mathematically excluding the
+                            7:00
+                            PM to 9:00 PM quiet period. Fires a Dashboard Alert to Admins after 2 active hours of seller
+                            inaction.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">N07</td>
+                        <td><code>SendBookingDateReminders.php</code><br /><small
+                                style="color:#aaa">app/Console/Commands/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Daily 10:00 AM Cron Job that sends a 1-day advance SMS reminder to both the Seller and the
+                            Admin
+                            for Confirmed bookings.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ══════════════════ PRICING & BUSINESS RULES ════════ -->
+        <div class="card">
+            <h3><span class="h-bar"></span>8. Pricing &amp; Business Rules (BR-001 - BR-004)</h3>
+            <p class="section-desc">Centralized pricing logic ensures consistent 15% JAD Fees, VAT taxation, and
+                2-decimal
+                point precision between the Server and Mobile architectures.</p>
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th width="80">ID</th>
+                        <th width="320">Component Location</th>
+                        <th width="100">State</th>
+                        <th>Documentation &amp; Implementation Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tnum">BR01</td>
+                        <td><code>PricingService.php</code><br /><small style="color:#aaa">app/Services/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Created a unified Laravel service module to dynamically calculate the <kbd>15% JAD
+                                Markup</kbd>,
+                            <kbd>15% VAT</kbd>, and the $1 Processing fee using strict <code>round($val, 2)</code>
+                            precision. Consumed by the Checkout and Listing APIs.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">BR02</td>
+                        <td><code>pricing_service.dart</code><br /><small
+                                style="color:#aaa">app/lib/infrastructure/services/</small></td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td>Direct Dart translation of the Laravel Pricing Service mathematical algorithms. Injected
+                            into
+                            the <code>BookingCheckoutController</code> to securely calculate on-screen Flutter VAT and
+                            final
+                            checkout totals, preventing desyncs.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">BR03</td>
+                        <td><code>OrderObserver.php</code><br /><small style="color:#aaa">app/Observers/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td>Fixed payout deduction rules. Because the JAD fee is uniquely constructed as an added markup
+                            rather than a deduction, the code was updated to disburse <strong>100% of the Seller's Base
+                                Price</strong> into their settlement wallet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="div" />
+
+        <!-- ══════════════════ DATA VALIDATION RULES ════════════ -->
+        <div class="card">
+            <h3><span class="h-bar"></span>10. Data Validation Rules (VR-001 - VR-00X) <span
+                    class="badge-new">NEW</span></h3>
+            <p class="section-desc">Strict backend validation layers designed to securely prevent overbooking,
+                unauthorized checkout access, and logical date errors prior to payment.</p>
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th width="80">ID</th>
+                        <th width="320">Component Location</th>
+                        <th width="100">State</th>
+                        <th>Documentation &amp; Implementation Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tnum">VR01</td>
+                        <td><code>BookingController.php</code><br /><small
+                                style="color:#aaa">app/Http/Controllers/Api/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td><strong>Input Hardening:</strong> Added <code>min:1|max:100</code> config limits for cart
+                            quantities. Added date traversal checks preventing historical checkouts via
+                            <code>after_or_equal:today</code>.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">VR02</td>
+                        <td><code>BookingController.php</code><br /><small
+                                style="color:#aaa">app/Http/Controllers/Api/</small></td>
+                        <td><span class="tc-mod">MODIFIED</span></td>
+                        <td><strong>Banned Seller Prevention:</strong> The checkout API actively checks the
+                            <code>seller-&gt;is_blocked</code> parameter, completely preventing clients from placing
+                            bookings with suspended merchants.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">VR03</td>
+                        <td><code>AvailabilityService.php</code><br /><small style="color:#aaa">app/Services/</small>
+                        </td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td><strong>Single Capacity Checks:</strong> Identifies if a <code>Single</code> capacity
+                            service (like private consults) has any intersecting <code>Confirmed</code> or
+                            <code>Paid</code> orders within the requested timeframe. Strictly rejects overlapping
+                            purchases to prevent double-booking.</td>
+                    </tr>
+                    <tr>
+                        <td class="tnum">VR04</td>
+                        <td><code>AvailabilityService.php</code><br /><small style="color:#aaa">app/Services/</small>
+                        </td>
+                        <td><span class="tc-new">NEW</span></td>
+                        <td><strong>Quantity Capacity Checks:</strong> Iterates day-by-day across the requested calendar
+                            range. Mathematically aggregates the total tickets booked across all intersecting
+                            <code>Confirmed / Paid</code> orders for each day. Halts the checkout if
+                            <code>booked_tickets + requested_tickets &gt; template_max_limit</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="div" />
+
+        <!-- ══════════════════ PRE-DEPLOYMENT CHECKLIST ════════ -->
+        <div class="card">
+            <h3><span class="h-bar"></span>Pre-Deployment Checklist</h3>
+            <ul class="chk">
+                <li class="be-chk"><span class="cb"></span><strong>Backend:</strong> Run
+                    <code>php artisan migrate</code> — creates booking_service_templates and booking_listings tables
+                </li>
+                <li class="be-chk"><span class="cb"></span><strong>Backend:</strong> Configure queue worker:
+                    <code>php artisan queue:work</code> (Supervisor recommended for production)
+                </li>
+                <li class="be-chk"><span class="cb"></span><strong>Backend:</strong> Add cron entry for Laravel
+                    scheduler: <code>* * * * * php artisan schedule:run &gt;&gt; /dev/null 2&gt;&amp;1</code></li>
+                <li class="be-chk"><span class="cb"></span><strong>Backend:</strong> Verify laravel-wallet package
+                    installed &amp; seller wallet records exist before going live</li>
+                <li class="be-chk"><span class="cb"></span><strong>Backend:</strong> Admin seeds at least one
+                    BookingServiceTemplate (is_visible=true) before sellers can create listings</li>
+                <li class="be-chk"><span class="cb"></span><strong>Backend:</strong> Test /api/customer/booking/checkout
+                    with Postman — verify Order created in "Paid" status</li>
+                <li class="fl-chk"><span class="cb"></span><strong>App:</strong> Accept Xcode license
+                    (<code>sudo xcodebuild -license</code>), then run <code>dart run build_runner build</code> to
+                    regenerate .g.dart files cleanly</li>
+                <li class="fl-chk"><span class="cb"></span><strong>App:</strong> Test end-to-end: tap booking service →
+                    checkout screen loads → confirm → success dialog → home</li>
+                <li class="fl-chk"><span class="cb"></span><strong>App:</strong> Test quote services still open wizard
+                    unchanged (regression test)</li>
+                <li class="fl-chk"><span class="cb"></span><strong>App:</strong> Verify price breakdown math on checkout
+                    screen matches server returned values</li>
+                <li class="fl-chk"><span class="cb"></span><strong>App:</strong> Test wallet insufficient balance error
+                    — error dialog must appear, no crash</li>
+                <li class="fl-chk"><span class="cb"></span><strong>App:</strong> Build release APK/IPA and distribute
+                    via Firebase App Distribution for QA sign-off</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            JAD Platform &nbsp;·&nbsp; Booking Service Integration Report &nbsp;·&nbsp; 04 March 2026 &nbsp;·&nbsp;
+            Confidential — Internal Use Only
+        </div>
+
+    </div><!-- /wrap -->
+</body>
+
+</html>
